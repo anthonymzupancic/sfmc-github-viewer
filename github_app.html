@@ -75,8 +75,7 @@
           this.repositories = repoList
         },
         getFileList: async function () {
-          const repo = this.selectedRepo;
-          const repoObj = this.repositories.filter((repo) => repo.name === repo)
+          const repoObj = this.repositories.filter((repo) => repo.name === this.selectedRepo)
           console.log(repoObj)
           this.selectedRepoObj = repoObj;
         }
