@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -60,16 +59,15 @@
           msgFromSSJS: '<ctrl:var name="test" />'
         }
       },
-      mounted: {
+      mounted: function () {
         getRepos()
       },
       methods: {
-        getRepos: async function(){
+        getRepos: async function () {
           const repos = await axios.get('https://mc1qn0yvnrq-lmv34mcgry2c8s60.pub.sfmc-content.com/wd5d4miwnc3?action=getRepos')
           console.log(repos)
         }
-      },
-      computed: {}
+      }
     })
   </script>
 
