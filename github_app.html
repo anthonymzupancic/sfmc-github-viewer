@@ -55,8 +55,7 @@
       el: '#app',
       data: function () {
         return {
-          msg: 'test message from component',
-          msgFromSSJS: '<ctrl:var name="test" />'
+         repositories: [],
         }
       },
       mounted: function () {
@@ -65,7 +64,12 @@
       methods: {
         getRepos: async function () {
           const repos = await axios.get('https://mc1qn0yvnrq-lmv34mcgry2c8s60.pub.sfmc-content.com/wd5d4miwnc3?action=getRepos')
-          console.log(repos)
+          this.repositories = repos.data.map((repo) => {
+            return {
+             name: repo.name,
+             contents_url: repo.contents_url
+            }
+          })
         }
       }
     })
