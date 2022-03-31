@@ -1,6 +1,6 @@
 <script runat="server">
   Platform.Load('core', '1')
-  
+
   // Global Variables
   // Change these variables according to your own settings
   var github_config = Platform.Function.ContentBlockByName('Content Builder\\github-viewer\\config\\github_config')
@@ -10,27 +10,32 @@
     username: config.username,
     token: config.token
   }
- 
+
   // Do not change anything below this section
   // get repo content
-  function getRepos(obj){
-      //Building the request URL = https://api.github.com/repos/stackexchange/mysecretrepo/contents/code.js
-      var resource = 'https://api.github.com/user/repos/'
+  function getRepos(obj) {
+    //Building the request URL = https://api.github.com/repos/stackexchange/mysecretrepo/contents/code.js
+    var resource = 'https://api.github.com/user/repos/'
 
-      var req = new Script.Util.HttpRequest(resource);
-          req.emptyContentHandling = 0;
-          req.retries = 2;
-          req.continueOnError = true;
-          req.contentType = "application/json; charset=utf-8"
-          req.setHeader("Authorization","token " + obj.token);
-          //  This header is very important! It allows to get the file content raw version. With that we can treat the the file as content like a charm :)
-          req.setHeader("Accept", "application/vnd.github.v3.raw");
-          req.setHeader("Cache-Control", "");
-          req.method = "GET";
+    var req = new Script.Util.HttpRequest(resource);
+    req.emptyContentHandling = 0;
+    req.retries = 2;
+    req.continueOnError = true;
+    req.contentType = "application/json; charset=utf-8"
+    req.setHeader("Authorization", "token " + obj.token);
+    //  This header is very important! It allows to get the file content raw version. With that we can treat the the file as content like a charm :)
+    req.setHeader("Accept", "application/vnd.github.v3.raw");
+    req.setHeader("Cache-Control", "");
+    req.method = "GET";
 
-      var resp = req.send();
-      return req.content
+    var resp = req.send();
+    var resultStr = String(resp.content);
+    var resultJSON = Platform.Function.ParseJSON(resultStr);
+
+    return resultJSON;
   }
+
+
 
   //Run the function passing the user settings as parameter
   var repos = getRepos(github_obj)
@@ -63,28 +68,28 @@
   <div v-cloak id="app">
     <div class="container">
       <div class="row mt-4">
-          <form class="cols-12">
-            <div class="form-group">
-              <label for="repoList">Repositories</label>
-              <select class="form-control cols-12" id="repoList">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-              </select>
-            </div>
-            <div class="form-group cols-12">
-              <label for="fileList">Files</label>
-              <select class="form-control" id="fileList">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-              </select>
-            </div>
-          </form>   
+        <form class="cols-12">
+          <div class="form-group">
+            <label for="repoList">Repositories</label>
+            <select class="form-control cols-12" id="repoList">
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+            </select>
+          </div>
+          <div class="form-group cols-12">
+            <label for="fileList">Files</label>
+            <select class="form-control" id="fileList">
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+            </select>
+          </div>
+        </form>
       </div>
     </div>
 
