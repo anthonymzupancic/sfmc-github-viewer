@@ -76,8 +76,12 @@
         },
         getFileList: async function () {
           const repoObj = this.repositories.find((repo) => repo.name === this.selectedRepo)
-          console.log(repoObj)
           this.selectedRepoObj = repoObj;
+          const fileList = await axios.post('https://mc1qn0yvnrq-lmv34mcgry2c8s60.pub.sfmc-content.com/wd5d4miwnc3?action=getFiles', {
+            data: repoObj
+          })
+
+          console.log(fileList)
         }
       },
       watch: {
