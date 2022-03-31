@@ -1,48 +1,4 @@
-<script runat="server">
-  Platform.Load('core', '1')
 
-  // Global Variables
-  // Change these variables according to your own settings
-  var github_config = Platform.Function.ContentBlockByName('Content Builder\\github-viewer\\config\\github_config')
-  var config = config();
-
-  var github_obj = {
-    username: config.username,
-    token: config.token
-  }
-
-  // Do not change anything below this section
-  // get repo content
-  function getRepos(obj) {
-
-    //Building the request URL = https://api.github.com/repos/stackexchange/mysecretrepo/contents/code.js
-    var resource = 'https://api.github.com/user/repos'
-
-    var req = new Script.Util.HttpRequest(resource);
-    req.emptyContentHandling = 0;
-    req.retries = 2;
-    req.continueOnError = true;
-    req.contentType = "application/json; charset=utf-8"
-    req.setHeader("Authorization", "token " + obj.token);
-    req.setHeader("User-Agent", obj.username);
-    //  This header is very important! It allows to get the file content raw version. With that we can treat the the file as content like a charm :)
-    req.setHeader("Accept", "application/vnd.github.v3.raw");
-    req.setHeader("Cache-Control", "");
-    req.method = "GET";
-
-    var resp = req.send();
-
-    var resp = req.send();
-    var resultStr = String(resp.content);
-    var resultJSON = Platform.Function.ParseJSON(resultStr);
-    return resultJSON
-  }
-
-  //Run the function passing the user settings as parameter
-  var repos = getRepos(github_obj)
-  Write(Stringify(repos))
-
-</script>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -104,7 +60,15 @@
           msgFromSSJS: '<ctrl:var name="test" />'
         }
       },
-      methods: {},
+      mounted: {
+        getRepos()
+      },
+      methods: {
+        getRepos: async function(){
+          const repos = await axios.get('https://mc1qn0yvnrq-lmv34mcgry2c8s60.pub.sfmc-content.com/wd5d4miwnc3?action=getRepos')
+          console.log(repos)
+        }
+      },
       computed: {}
     })
   </script>
