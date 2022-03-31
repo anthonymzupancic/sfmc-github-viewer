@@ -27,7 +27,7 @@
         <form class="cols-12">
           <div class="form-group">
             <label for="repoList">Repositories</label>
-            <select class="form-control cols-12" id="repoList">
+            <select v-model="selectedRepo" class="form-control cols-12" id="repoList">
               <option v-if="repositories.length" v-for="repo in repositories" :key="repo.name">
                 {{repo.name}}
               </option>
@@ -44,6 +44,8 @@
             </select>
           </div>
         </form>
+
+        {{selectedRepo}}
       </div>
     </div>
 
@@ -54,6 +56,7 @@
       data: function () {
         return {
          repositories: [],
+         selectedRepo: ''
         }
       },
       mounted: function () {
@@ -68,10 +71,10 @@
              contents_url: repo.contents_url
             }
           })
-
           this.repositories = repoList
         }
-      }
+      },
+
     })
   </script>
 
