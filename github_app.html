@@ -28,11 +28,9 @@
           <div class="form-group">
             <label for="repoList">Repositories</label>
             <select class="form-control cols-12" id="repoList">
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
+              <option v-if="repositories.length" v-for="repo in repositories" :key="repo.name">
+                {{repo.name}}
+              </option>
             </select>
           </div>
           <div class="form-group cols-12">
