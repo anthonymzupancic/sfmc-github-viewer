@@ -67,6 +67,10 @@
         getRepos: async function () {
           const repos = await axios.get('https://mc1qn0yvnrq-lmv34mcgry2c8s60.pub.sfmc-content.com/wd5d4miwnc3?action=getRepos')
           const repoList = repos.data.map((repo) => {
+            let contentURL = repo.contents_url.split('/')
+                contentURL.splice(-1)
+                contentURL = contentURL.join('/')
+
             return {
               name: repo.name,
               contents_url: repo.contents_url
@@ -77,11 +81,11 @@
         getFileList: async function () {
           const repoObj = this.repositories.find((repo) => repo.name === this.selectedRepo)
           this.selectedRepoObj = repoObj;
-          const fileList = await axios.post('https://mc1qn0yvnrq-lmv34mcgry2c8s60.pub.sfmc-content.com/wd5d4miwnc3?action=getFiles', {
-            data: repoObj
-          })
+          // const fileList = await axios.post('https://mc1qn0yvnrq-lmv34mcgry2c8s60.pub.sfmc-content.com/wd5d4miwnc3?action=getFiles', {
+          //   data: repoObj
+          // })
 
-          console.log(fileList)
+          // console.log(fileList)
         }
       },
       watch: {
