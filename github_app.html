@@ -55,9 +55,9 @@
       el: '#app',
       data: function () {
         return {
-         repositories: [],
-         selectedRepo: '',
-         selectedRepoObj: {}
+          repositories: [],
+          selectedRepo: '',
+          selectedRepoObj: {}
         }
       },
       mounted: function () {
@@ -68,15 +68,15 @@
           const repos = await axios.get('https://mc1qn0yvnrq-lmv34mcgry2c8s60.pub.sfmc-content.com/wd5d4miwnc3?action=getRepos')
           const repoList = repos.data.map((repo) => {
             return {
-             name: repo.name,
-             contents_url: repo.contents_url
+              name: repo.name,
+              contents_url: repo.contents_url
             }
           })
           this.repositories = repoList
         },
-        getFileList: async function (){
+        getFileList: async function () {
           const repo = this.selectedRepo;
-          const repoObj = this.repositories.find((repo) => repo.name === repo)
+          const repoObj = this.repositories.filter((repo) => repo.name === repo)
           console.log(repoObj)
           this.selectedRepoObj = repoObj;
         }
