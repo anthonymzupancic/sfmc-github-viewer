@@ -45,7 +45,7 @@
           </div>
         </form>
 
-        {{selectedRepo}}
+        {{selectedRepoObj}}
       </div>
     </div>
 
@@ -56,7 +56,8 @@
       data: function () {
         return {
          repositories: [],
-         selectedRepo: ''
+         selectedRepo: '',
+         selectedRepoObj: null
         }
       },
       mounted: function () {
@@ -72,6 +73,11 @@
             }
           })
           this.repositories = repoList
+        },
+        getFileList: async function (){
+          const repo = this.selectedRepo;
+          const repoObj = this.repositories.find((repo) => repo.name === repo)
+          this.selectedRepoObj = repoObj;
         }
       },
 
