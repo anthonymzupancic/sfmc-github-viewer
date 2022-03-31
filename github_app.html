@@ -64,12 +64,14 @@
       methods: {
         getRepos: async function () {
           const repos = await axios.get('https://mc1qn0yvnrq-lmv34mcgry2c8s60.pub.sfmc-content.com/wd5d4miwnc3?action=getRepos')
-          this.repositories = repos.data.map((repo) => {
+          const repoList = repos.data.map((repo) => {
             return {
              name: repo.name,
              contents_url: repo.contents_url
             }
           })
+
+          this.repositories = repoList
         }
       }
     })
