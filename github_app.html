@@ -81,7 +81,11 @@
           this.selectedRepoObj = repoObj;
         }
       },
-
+      watch: {
+        selectedRepo: function () {
+          this.getFileList();
+        }
+      }
     })
   </script>
 
